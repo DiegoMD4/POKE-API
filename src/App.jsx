@@ -1,27 +1,30 @@
-import { Pokemon } from './components/Pokemon';
-import pokemonResults from './Mocks/Pokemon-data.json';
 import './App.css';
-
+import { useState} from 'react';
+import { usePokemon } from './hooks/usePokemon';
+import { Pokemon } from './components/Pokemon';
 
 function App() {
+  const [search, setSearch] = useState('');
+  const {data} = usePokemon();
 
-   const pokemon = pokemonResults.results;
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
+  const filteredData = data.filter(pokemon => pokemon.name.includes(search));
 
   return (
     <div className="page">
       <header>
         <h1>Pokedex</h1>
-        <form action="" className="form" >
-          <input name="query" type="text" placeholder="Bulbasaur, Charmander, Squirtle..." />
+        <form action="" className="form">
+          <input name="query" type="text" placeholder="Bulbasaur, Charmander, Squirtle..." onChange={handleSearch} />
           <input type="checkbox" />
-          <button type="submit">Buscar</button>
+          <button  type="submit">Buscar</button>
         </form>
-        {/* {error && <p style={{ color: 'red' }}>{error}</p>} */}
       </header>
       <main>
-        {/* {loading ? <p>Cargando...</p> : <Movies movies={movies} />} */}
-        {<Pokemon pokemon={pokemon}></Pokemon>}
+        {<Pokemon filteredData={filteredData}></Pokemon>}
       </main>
     </div>
   );
