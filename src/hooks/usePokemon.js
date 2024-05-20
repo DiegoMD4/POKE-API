@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
-import { getElements } from "../services/pokemon";
-export function usePokemon() {
-  const [data, setData] = useState([]);
+import mockedData from '../Mocks/Pokemon-data.json';
 
-  useEffect(() => {
-    getElements().then((res) => setData(res));
-  }, []);
 
-  return { data };
-}
+export function UsePokemon(){
+    const pokemons = mockedData.results;
+    const mappedPokemon = pokemons?.map(pokemon =>({
+      pokemonName: pokemon.name,
+      pokemonURL: pokemon.url
+    }));
+  
+    return {pokemons : mappedPokemon};
+  }
