@@ -1,6 +1,6 @@
 function ListOfPokemon({pokemon}){
     return(
-        <ul className='PokeCard'>
+        <ul className='Card'>
           {pokemon?.map(element =>(
             <li className='pokemon' key={element.pokemonName}>
               <h3>{element.pokemonName}</h3>
