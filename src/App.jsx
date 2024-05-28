@@ -18,10 +18,10 @@ function useSearch(){
       setError('Input cant be in blank');
       return;
      }
-     if(search.match(/^\d+$/)){
-      setError('Numbers are not valid in this input');
-      return;
-     }
+    //  if(search.match(/^\d+$/)){
+    //   setError('Numbers are not valid in this input');
+    //   return;
+    //  }
      if(search.length < 3 ){
       setError('Max 3 characters');
       return;
@@ -41,7 +41,7 @@ function App() {
 
   const debouncedGetPokemon = useCallback(debounce(search =>{
     getPokemon({search});
-  }, 300), [getPokemon]);
+  }, 400), [getPokemon]);
 
 
   
@@ -61,6 +61,7 @@ function App() {
     setSort(!sort);
   };
   
+
 
   return (
     <div className="page">
