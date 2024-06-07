@@ -1,4 +1,3 @@
-
 export const searchPokemon = async ({search}) =>{
     if(search === ''){
         return null;
@@ -40,6 +39,7 @@ export const getDefault = async () => {
             };
 
             returnedPokemon.push(defPokemon);
+
         }
         return returnedPokemon;
     } catch (error) {

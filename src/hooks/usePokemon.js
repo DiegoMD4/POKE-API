@@ -30,6 +30,7 @@ export function usePokemon({ search, sort }) {
       setPokemon(newData);
     } catch (error) {
       console.error("getPokemonDefault error", error);
+      setError(error.message);
     }finally{
       setLoading(false);
     }
