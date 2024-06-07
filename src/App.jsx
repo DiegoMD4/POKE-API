@@ -1,6 +1,6 @@
 import './App.css';
 import { Pokemon } from './components/Pokemon';
-import { usePokemon } from './hooks/usePokemon';
+import { usePokemon} from './hooks/usePokemon';
 import { useState, useRef, useCallback, useEffect} from 'react';
 import debounce from 'just-debounce-it';
 
@@ -8,7 +8,7 @@ function useSearch(){
   const [search, updateSearch] = useState('');
   const [error, setError] = useState(null);
   const isFirstInput = useRef(true);
-
+  
   useEffect(()=>{
     if(isFirstInput.current){
       isFirstInput.current = search === '';
@@ -37,7 +37,7 @@ function App() {
   const [sort, setSort] = useState(false);
 
   const {search, updateSearch, error} = useSearch();
-  const { pokemon, getPokemon , loading} = usePokemon({search, sort});
+  const { pokemon, getPokemon , loading, getPokemonDefault} = usePokemon({search, sort});
 
   const debouncedGetPokemon = useCallback(debounce(search =>{
     getPokemon({search});
@@ -61,6 +61,17 @@ function App() {
     setSort(!sort);
   };
   
+
+  useEffect(() => {
+    const firstCharge = async () => {
+      try {
+        await getPokemonDefault();
+      } catch (error) {
+        console.error('Error during firstCharge', error);
+      }
+    };
+    firstCharge();
+  }, [getPokemonDefault]);
 
 
   return (

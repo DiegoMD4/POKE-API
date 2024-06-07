@@ -1,5 +1,5 @@
 import { useState, useRef, useMemo, useCallback } from "react";
-import { searchPokemon } from "../services/API";
+import { searchPokemon, getDefault } from "../services/API";
 
 export function usePokemon({ search, sort }) {
   const [pokemon, setPokemon] = useState([]);
@@ -22,6 +22,18 @@ export function usePokemon({ search, sort }) {
       setLoading(false);
     }
   } ,[]);
+
+  const getPokemonDefault = useCallback(async () => {
+    try {
+      setLoading(true);
+      const newData = await getDefault();
+      setPokemon(newData);
+    } catch (error) {
+      console.error("getPokemonDefault error", error);
+    }finally{
+      setLoading(false);
+    }
+  }, []);
   
     const sortedPokemon = useMemo(()=>{
       return sort
@@ -30,5 +42,13 @@ export function usePokemon({ search, sort }) {
     }, [sort, pokemon]);
 
 
-  return { pokemon: sortedPokemon, getPokemon, loading, error };
+  return { pokemon: sortedPokemon, getPokemon, getPokemonDefault, loading, error };
 }
+
+// export function UseDefault(){
+//   const [pokemon, setPokemon] = useState([]);
+
+  
+
+//   return {getPokemonDefault, pokemon};
+// }
